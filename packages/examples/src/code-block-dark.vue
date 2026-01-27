@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { CodeBlock, CodeBlockCopyButton } from '@repo/elements/code-block'
+import {
+  CodeBlock,
+  CodeBlockActions,
+  CodeBlockCopyButton,
+  CodeBlockFilename,
+  CodeBlockHeader,
+  CodeBlockTitle,
+} from '@repo/elements/code-block'
+import { FileIcon } from 'lucide-vue-next'
 
 const code = `<template>
   <div>
@@ -17,7 +25,6 @@ defineProps<Props>()
 <\/script>`
 
 function handleCopy() {
-  // eslint-disable-next-line no-console
   console.log('Copied code to clipboard')
 }
 
@@ -29,10 +36,18 @@ function handleError(error: Error) {
 <template>
   <div class="dark">
     <CodeBlock :code="code" language="vue">
-      <CodeBlockCopyButton
-        @copy="handleCopy"
-        @error="handleError"
-      />
+      <CodeBlockHeader>
+        <CodeBlockTitle>
+          <FileIcon :size="14" />
+          <CodeBlockFilename>MyComponent.vue</CodeBlockFilename>
+        </CodeBlockTitle>
+        <CodeBlockActions>
+          <CodeBlockCopyButton
+            @copy="handleCopy"
+            @error="handleError"
+          />
+        </CodeBlockActions>
+      </CodeBlockHeader>
     </CodeBlock>
   </div>
 </template>
